@@ -12,8 +12,6 @@ export default class Config {
   private configOptions: ConfigOptions | undefined;
   private env: NodeJS.ProcessEnv = {};
 
-  private debugStack: string = '';
-
   private constructor() {}
 
   public static getInstance(): Config {
@@ -27,11 +25,7 @@ export default class Config {
   public setup(configOptions?: ConfigOptions): ConfigOptions | undefined {
     this.configOptions = configOptions;
 
-    this.debugStack += `configOptions: ${JSON.stringify(this.configOptions, undefined, 1)}\n`;
-
     this.isSetup = true;
-    this.loadEnv();
-
     return this.configOptions;
   }
 
@@ -87,26 +81,5 @@ export default class Config {
     } catch (error) {
       throw error;
     }
-  }
-
-  // ---
-  public printReport() {
-    const configHeaderText = ' Configuration Report ';
-    const configPrintWidth = 60;
-    const configHeaderCharsCount = Math.floor((configPrintWidth - configHeaderText.length) / 2);
-    const configHeader =
-      '\n\n' + '='.repeat(configHeaderCharsCount) + configHeaderText + '='.repeat(configHeaderCharsCount) + '\n\n';
-    const configFooterText = ' End Of Configuration Report ';
-    const configFooterCharsCount = Math.floor((configPrintWidth - configFooterText.length) / 2);
-    const configFooter =
-      '\n\n' + '='.repeat(configFooterCharsCount) + configFooterText + '='.repeat(configFooterCharsCount) + '\n\n';
-
-    console.log(configHeader);
-
-    console.log('\n' + this.debugStack);
-
-    // this.debugStack = '';
-
-    console.log(configFooter);
   }
 }
