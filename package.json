@@ -1,0 +1,27 @@
+{
+  "name": "cdk8s-config",
+  "version": "0.0.1",
+  "description": "Add configuration features using environment variables.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [
+    "cdk8s",
+    "config"
+  ],
+  "author": "Jonas Schmitt",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.5",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "js-yaml": "^3.13.1"
+  }
+}
