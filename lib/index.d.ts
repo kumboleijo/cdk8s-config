@@ -1,27 +1,17 @@
-import { ConfigOptions } from './src/types/configOptions';
-import { ConfigKeyValue } from './src/types/configKeyValue';
-import { Stage } from './src/types/stage';
+import { ConfigOptions, ConfigFileOptions, RequiredConfigFileOptions } from './src/types';
 export default class Config {
     private static instance;
     private isSetup;
-    private configFilesPath;
-    private configKeys;
     private configOptions;
     private env;
-    private configKeyValues;
     private debugStack;
     private constructor();
     static getInstance(): Config;
-    setup(configFilePath?: string, configKeys?: Array<string>, configOptions?: ConfigOptions): void;
-    load(): void;
-    getData(moduleName: string): Promise<{
-        data: Object;
-    } | undefined>;
-    getConfigOptions(): ConfigOptions | undefined;
-    getEnv(): any;
-    getConfigKeys(): string[] | undefined;
-    getConfigKeyValues(): ConfigKeyValue[] | undefined;
-    getConfigValueForKey(key: string): string | undefined;
-    getStage(): Stage;
+    setup(configOptions?: ConfigOptions): ConfigOptions | undefined;
+    private loadEnv;
+    getEnv(key: string): string | undefined;
+    requireEnv(key: string): string;
+    get(configFileOptions: ConfigFileOptions): Promise<any>;
+    require(configFileOptions: RequiredConfigFileOptions): Promise<any>;
     printReport(): void;
 }

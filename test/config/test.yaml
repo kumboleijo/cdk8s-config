@@ -1,0 +1,4 @@
+my-key:
+  key1: value1
+  key2:
+    test1: test2
