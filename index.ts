@@ -17,7 +17,7 @@ export default class Config {
    * This function creates a new config object out of a yaml file.
    * @param {string} filePath
    * @returns {Config}
-   * @example const configFromFile = await Config.fromFile('<path to your config yaml>');
+   * @example const configFromFile = await Config.fromFile('file.yaml');
    */
   public static async fromFile(filePath: string) {
     try {
@@ -34,7 +34,7 @@ export default class Config {
    * This function creates a new config object out of multiple yaml files.
    * @param {Array<string>} files
    * @returns {Config}
-   * @example const configFromMultipleFiles = await Config.fromFiles(['file1', 'file2']);
+   * @example const configFromMultipleFiles = await Config.fromFiles(['file1.yaml', 'file2.yaml']);
    */
   public static async fromFiles(files: Array<string>) {
     try {
