@@ -13,7 +13,8 @@
     "test": "echo xthere are no tests specified",
     "examples": "yarn run build && ts-node ./examples/1-basic/",
     "docs:serve": "yarn run build && documentation serve ./lib/index.js",
-    "docs:build": "yarn run build && documentation build ./lib/index.js -f html -o docs"
+    "docs:build": "yarn run build && documentation build ./lib/index.js -f html -o docs",
+    "prepublishOnly": "npm version patch"
   },
   "files": [
     "lib/**/*"
