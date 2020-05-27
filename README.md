@@ -2,6 +2,8 @@
 
 Add configuration 🛠 features to your cdk8s project.
 
+[![npm version](https://badge.fury.io/js/cdk8s-config.svg)](https://badge.fury.io/js/cdk8s-config)
+
 ## Overview 👀
 
 ```yaml
