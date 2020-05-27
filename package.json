@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rm -rf ./lib && tsc",
     "test": "echo xthere are no tests specified",
-    "examples": "ts-node ./examples/1-get-env/ && ts-node ./examples/2-require-env/ && ts-node ./examples/3-get/ && ts-node ./examples/4-require/"
+    "examples": "yarn run build && ts-node ./examples/1-basic/"
   },
   "files": [
     "lib/**/*"
@@ -27,6 +27,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "brototype": "^0.0.6",
     "dotenv": "^8.2.0",
     "js-yaml": "^3.13.1",
     "ts-node": "^8.10.1"

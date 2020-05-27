@@ -1,15 +1,19 @@
-import { ConfigOptions, ConfigFileOptions, RequiredConfigFileOptions } from './src/types';
-
 const fs = require('fs');
 const fsPromises = fs.promises;
 const yaml = require('js-yaml');
 
+const Bro = require('brototype');
+
 require('dotenv').config();
+
+export type ConfigOptions = {
+  configFile: string;
+};
 
 export type ConfigFileOptions = {
   filePath?: string;
   fileName?: string;
-  key?: string;
+  key?: string | Array<string>;
 };
 
 export type RequiredConfigFileOptions = {
@@ -18,35 +22,25 @@ export type RequiredConfigFileOptions = {
   key: string;
 };
 
-export type ConfigOptions = {
-  configFilesPath?: string;
-};
-
 export default class Config {
-  private static instance: Config;
-  private isSetup: Boolean = false;
   private configOptions: ConfigOptions | undefined;
-  private env: NodeJS.ProcessEnv = {};
+  private data: any;
+  private env: NodeJS.ProcessEnv;
 
-  private constructor() {}
-
-  public static getInstance(): Config {
-    if (!Config.instance) {
-      Config.instance = new Config();
-      Config.instance.loadEnv();
-    }
-    return Config.instance;
-  }
-
-  public setup(configOptions?: ConfigOptions): ConfigOptions | undefined {
-    this.configOptions = configOptions;
-
-    this.isSetup = true;
-    return this.configOptions;
-  }
-
-  private loadEnv() {
+  private constructor(data: Object) {
+    this.data = data;
     this.env = process.env;
+  }
+
+  public static async fromFile(filePath: string) {
+    try {
+      const fileContents = await fsPromises.readFile(filePath, { encoding: 'utf8' });
+      const data = yaml.safeLoad(fileContents);
+      return new Config(data);
+    } catch (error) {
+      console.error(error);
+      return new Config({});
+    }
   }
 
   public getEnv(key: string) {
@@ -60,42 +54,45 @@ export default class Config {
     return returnValue;
   }
 
-  public async get(configFileOptions: ConfigFileOptions) {
-    let options = {
-      filePath: configFileOptions.filePath || `${this.configOptions?.configFilesPath}/${configFileOptions.fileName}`,
-      fileName: configFileOptions.fileName,
-      key: configFileOptions.key,
-    };
+  public get() {
+    return this.data;
+  }
 
-    try {
-      if (options.filePath) {
-        const data = await fsPromises.readFile(options.filePath, { encoding: 'utf8' });
-        const fileContents = yaml.safeLoad(data);
-        const returnValue = configFileOptions.key ? fileContents[configFileOptions.key] : fileContents;
-        return returnValue;
-      }
-    } catch (error) {
-      return undefined;
+  public byKey(key: string) {
+    if (Bro(this.data).doYouEven(key)) {
+      const keySplit = key.split('.');
+      let data: any = undefined;
+      keySplit.forEach((key) => {
+        if (!data) {
+          let tempData = this.data[key];
+          data = tempData;
+        } else {
+          let tempData = data[key];
+          data = tempData;
+        }
+      });
+      return new Config(data);
+    } else {
+      return new Config({});
     }
   }
 
-  public async require(configFileOptions: RequiredConfigFileOptions) {
-    let options = {
-      filePath: configFileOptions.filePath || `${this.configOptions?.configFilesPath}/${configFileOptions.fileName}`,
-      fileName: configFileOptions.fileName,
-      key: configFileOptions.key,
-    };
-
-    try {
-      if (options.filePath) {
-        const data = await fsPromises.readFile(options.filePath, { encoding: 'utf8' });
-        const fileContents = yaml.safeLoad(data);
-        const returnValue = fileContents[configFileOptions.key];
-        if (!returnValue) throw new Error('no such key in the config: ' + configFileOptions.key);
-        return returnValue;
-      }
-    } catch (error) {
-      throw error;
+  public requireByKey(key: string) {
+    if (Bro(this.data).doYouEven(key)) {
+      const keySplit = key.split('.');
+      let data: any = undefined;
+      keySplit.forEach((key) => {
+        if (!data) {
+          let tempData = this.data[key];
+          data = tempData;
+        } else {
+          let tempData = data[key];
+          data = tempData;
+        }
+      });
+      return new Config(data);
+    } else {
+      throw new Error('no such key: ' + key);
     }
   }
 }
