@@ -11,7 +11,9 @@
   "scripts": {
     "build": "rm -rf ./lib && tsc",
     "test": "echo xthere are no tests specified",
-    "examples": "yarn run build && ts-node ./examples/1-basic/"
+    "examples": "yarn run build && ts-node ./examples/1-basic/",
+    "docs:serve": "yarn run build && documentation serve ./lib/index.js",
+    "docs:build": "yarn run build && documentation readme ./lib/index.js --section=Documentation"
   },
   "files": [
     "lib/**/*"
@@ -29,6 +31,7 @@
   "dependencies": {
     "brototype": "^0.0.6",
     "deepmerge": "^4.2.2",
+    "documentation": "^13.0.0",
     "dotenv": "^8.2.0",
     "js-yaml": "^3.13.1",
     "ts-node": "^8.10.1"

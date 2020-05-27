@@ -13,6 +13,11 @@ export default class Config {
     this.data = data;
   }
 
+  /**
+   * This function creates a new config object out of a yaml file.
+   * @param {string} filePath
+   * @returns {Config}
+   */
   public static async fromFile(filePath: string) {
     try {
       const fileContents = await fsPromises.readFile(filePath, { encoding: 'utf8' });
@@ -24,6 +29,11 @@ export default class Config {
     }
   }
 
+  /**
+   * This function creates a new config object out of multiple yaml files.
+   * @param {Array<string>} files
+   * @returns {Config}
+   */
   public static async fromFiles(files: Array<string>) {
     try {
       let data: Array<Object> = [];
@@ -45,6 +55,11 @@ export default class Config {
     }
   }
 
+  /**
+   * This function returns a ENV variable by a given key.
+   * @param {string} key
+   * @returns {string | undefined}
+   */
   public static getEnv(key: string) {
     const returnValue = process.env[key];
     return returnValue;
