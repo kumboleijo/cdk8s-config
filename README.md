@@ -1,6 +1,6 @@
 # cdk8s-config
 
-_Add configuration 🛠 features to your cdk8s project._
+Add configuration 🛠 features to your cdk8s project.
 
 ## Overview 👀
 
