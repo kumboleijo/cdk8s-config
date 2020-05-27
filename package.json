@@ -10,7 +10,8 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf ./lib && tsc",
-    "test": "yarn run build && ts-node ./test/index.ts"
+    "test": "echo xthere are no tests specified",
+    "examples": "ts-node ./examples/1-get-env/ && ts-node ./examples/2-require-env/ && ts-node ./examples/3-get/ && ts-node ./examples/4-require/"
   },
   "files": [
     "lib/**/*"

@@ -6,6 +6,22 @@ const yaml = require('js-yaml');
 
 require('dotenv').config();
 
+export type ConfigFileOptions = {
+  filePath?: string;
+  fileName?: string;
+  key?: string;
+};
+
+export type RequiredConfigFileOptions = {
+  filePath?: string;
+  fileName?: string;
+  key: string;
+};
+
+export type ConfigOptions = {
+  configFilesPath?: string;
+};
+
 export default class Config {
   private static instance: Config;
   private isSetup: Boolean = false;

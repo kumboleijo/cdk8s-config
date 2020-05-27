@@ -11,8 +11,7 @@
 //
 // -------------------------------------------------------------
 
-import Config from '../../lib/index';
-import { ConfigFileOptions } from '../../lib/src/types';
+import Config, { ConfigFileOptions } from '../../lib/index';
 const path = require('path');
 
 const CONFIG = Config.getInstance();

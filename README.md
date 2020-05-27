@@ -31,12 +31,18 @@ or
 $ yarn add cdk8s-config
 ```
 
-## 
+## Usage
 
 ## Running the Examples 🏃🏽‍♀️
 
 ```sh
 $ npx ts-node ./examples/1-get-env/index.ts
+
+$ npx ts-node ./examples/2-require-env/index.ts
+
+$ npx ts-node ./examples/3-get/index.ts
+
+$ npx ts-node ./examples/4-require/index.ts
 ```
 
 

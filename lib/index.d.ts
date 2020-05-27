@@ -1,4 +1,17 @@
 import { ConfigOptions, ConfigFileOptions, RequiredConfigFileOptions } from './src/types';
+export declare type ConfigFileOptions = {
+    filePath?: string;
+    fileName?: string;
+    key?: string;
+};
+export declare type RequiredConfigFileOptions = {
+    filePath?: string;
+    fileName?: string;
+    key: string;
+};
+export declare type ConfigOptions = {
+    configFilesPath?: string;
+};
 export default class Config {
     private static instance;
     private isSetup;
