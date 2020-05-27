@@ -40,7 +40,7 @@ export default class Config {
 
   public requireEnv(key: string) {
     const returnValue = this.env[key];
-    if (!returnValue) throw new Error('no such key in ENV');
+    if (!returnValue) throw new Error('no such key in ENV: ' + key);
     return returnValue;
   }
 
@@ -75,7 +75,7 @@ export default class Config {
         const data = await fsPromises.readFile(options.filePath, { encoding: 'utf8' });
         const fileContents = yaml.safeLoad(data);
         const returnValue = fileContents[configFileOptions.key];
-        if (!returnValue) throw new Error('no such key in the config');
+        if (!returnValue) throw new Error('no such key in the config: ' + configFileOptions.key);
         return returnValue;
       }
     } catch (error) {
