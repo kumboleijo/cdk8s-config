@@ -2,6 +2,7 @@
 
 Add configuration 🛠 features to your cdk8s project.
 
+[![GitHub version](https://badge.fury.io/gh/kumboleijo%2Fcdk8s-config.svg)](https://badge.fury.io/gh/kumboleijo%2Fcdk8s-config)
 [![npm version](https://badge.fury.io/js/cdk8s-config.svg)](https://badge.fury.io/js/cdk8s-config)
 
 ## Overview 👀
