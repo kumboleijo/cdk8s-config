@@ -1,35 +1,16 @@
 const fs = require('fs');
 const fsPromises = fs.promises;
 const yaml = require('js-yaml');
-
 const Bro = require('brototype');
+const merge = require('deepmerge');
 
 require('dotenv').config();
 
-export type ConfigOptions = {
-  configFile: string;
-};
-
-export type ConfigFileOptions = {
-  filePath?: string;
-  fileName?: string;
-  key?: string | Array<string>;
-};
-
-export type RequiredConfigFileOptions = {
-  filePath?: string;
-  fileName?: string;
-  key: string;
-};
-
 export default class Config {
-  private configOptions: ConfigOptions | undefined;
-  private data: any;
-  private env: NodeJS.ProcessEnv;
+  private readonly data: any;
 
   private constructor(data: Object) {
     this.data = data;
-    this.env = process.env;
   }
 
   public static async fromFile(filePath: string) {
@@ -43,13 +24,34 @@ export default class Config {
     }
   }
 
-  public getEnv(key: string) {
-    const returnValue = this.env[key];
+  public static async fromFiles(files: Array<string>) {
+    try {
+      let data: Array<Object> = [];
+      let mergedData: Object = {};
+      await asyncForEach(files, async (file: any) => {
+        const fileContents = await fsPromises.readFile(file, { encoding: 'utf8' });
+        const tempData = yaml.safeLoad(fileContents);
+
+        data.push(tempData);
+        mergedData = merge.all(data);
+      });
+
+      return new Config(mergedData);
+
+      // return new Config(data);
+    } catch (error) {
+      console.error(error);
+      return new Config({});
+    }
+  }
+
+  public static getEnv(key: string) {
+    const returnValue = process.env[key];
     return returnValue;
   }
 
-  public requireEnv(key: string) {
-    const returnValue = this.env[key];
+  public static requireEnv(key: string) {
+    const returnValue = process.env[key];
     if (!returnValue) throw new Error('no such key in ENV: ' + key);
     return returnValue;
   }
@@ -109,5 +111,13 @@ export default class Config {
     }
 
     return new Config(data);
+  }
+}
+
+// ----- SOME HELPERS -----
+
+async function asyncForEach(array: any, callback: any) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
   }
 }
