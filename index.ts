@@ -17,6 +17,7 @@ export default class Config {
    * This function creates a new config object out of a yaml file.
    * @param {string} filePath
    * @returns {Config}
+   * @example const configFromFile = await Config.fromFile('<path to your config yaml>');
    */
   public static async fromFile(filePath: string) {
     try {
@@ -33,6 +34,7 @@ export default class Config {
    * This function creates a new config object out of multiple yaml files.
    * @param {Array<string>} files
    * @returns {Config}
+   * @example const configFromMultipleFiles = await Config.fromFiles(['file1', 'file2']);
    */
   public static async fromFiles(files: Array<string>) {
     try {
@@ -65,16 +67,30 @@ export default class Config {
     return returnValue;
   }
 
+  /**
+   * This function returns a ENV variable by a given key. If the ENV is not found the function will throw an error.
+   * @param {string} key
+   * @returns {string}
+   */
   public static requireEnv(key: string) {
     const returnValue = process.env[key];
     if (!returnValue) throw new Error('no such key in ENV: ' + key);
     return returnValue;
   }
 
+  /**
+   * This function returns the all the data of the current config object.
+   * @returns {Object}
+   */
   public get() {
     return this.data;
   }
 
+  /**
+   * This function returns a new Config for a given key.
+   * @param {string} key
+   * @returns {Config}
+   */
   public byKey(key: string) {
     if (Bro(this.data).doYouEven(key)) {
       const keySplit = key.split('.');
@@ -94,6 +110,11 @@ export default class Config {
     }
   }
 
+  /**
+   * This function returns a new Config for a given key. If the key is not found the function will throw an error.
+   * @param {string} key
+   * @returns {Config}
+   */
   public requireByKey(key: string) {
     if (Bro(this.data).doYouEven(key)) {
       const keySplit = key.split('.');
@@ -113,6 +134,11 @@ export default class Config {
     }
   }
 
+  /**
+   * This function returns a new Config for a given searchString.
+   * @param {string} searchString
+   * @returns {Config}
+   */
   public filterBy(searchString: string) {
     let data: any = {};
 
