@@ -6,17 +6,13 @@
 
 ```ts
 import Config from 'cdk8s-config';
-const path = require('path');
 
-const CONFIG = Config.getInstance();
-
-const configFilesPath = path.resolve(__dirname, './config');
-CONFIG.setup({ configFilesPath: configFilesPath });
-
-async function start() {
-  const configFileOptions = { fileName: 'test.yaml', key: 'my-key' };
-  const config = await CONFIG.get(configFileOptions);
+async function run() {
+  const configFilePath: string = '<path to your config yaml>'
+  const CONFIG = await Config.fromFile(configFilePath);
 }
+
+run();
 ```
 
 ## Installation 💻
@@ -36,13 +32,7 @@ $ yarn add cdk8s-config
 ## Running the Examples 🏃🏽‍♀️
 
 ```sh
-$ npx ts-node ./examples/1-get-env/index.ts
-
-$ npx ts-node ./examples/2-require-env/index.ts
-
-$ npx ts-node ./examples/3-get/index.ts
-
-$ npx ts-node ./examples/4-require/index.ts
+$ npx ts-node ./examples/1-basic/
 ```
 
 

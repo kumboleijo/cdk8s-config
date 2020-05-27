@@ -1,11 +1,9 @@
 my-key:
   key1: value1
-  key2:
-    key3: value2
-    key4: value3
-    key5:
-      key6: value4
-  asd:
-    key3: value2
-    key4: value3
-    key5: aval
+  key2: value2
+  key3:
+    a-key1: value3
+    a-key2: value4
+    b-key1: value5
+  foo1: bar1
+  foo2: bar2

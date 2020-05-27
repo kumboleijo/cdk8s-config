@@ -22,4 +22,5 @@ export default class Config {
     get(): any;
     byKey(key: string): Config;
     requireByKey(key: string): Config;
+    filterBy(searchString: string): Config;
 }

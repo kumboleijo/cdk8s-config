@@ -95,4 +95,19 @@ export default class Config {
       throw new Error('no such key: ' + key);
     }
   }
+
+  public filterBy(searchString: string) {
+    let data: any = {};
+
+    for (const key in this.data) {
+      if (key.indexOf(searchString) == 0) {
+        if (this.data.hasOwnProperty(key)) {
+          const element = this.data[key];
+          data[key] = element;
+        }
+      }
+    }
+
+    return new Config(data);
+  }
 }
