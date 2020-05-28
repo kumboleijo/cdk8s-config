@@ -14,7 +14,7 @@
     "examples": "yarn run build && ts-node ./examples/1-basic/",
     "docs:serve": "yarn run build && documentation serve ./lib/index.js",
     "docs:build": "yarn run build && documentation build ./lib/index.js -f html -o docs",
-    "version": "yarn run docs:build git commit -i ./docs/* -m update documentation to newest version"
+    "version": "yarn run docs:build && git commit -i ./docs/* -m update documentation to newest version"
   },
   "files": [
     "lib/**/*"
