@@ -25,7 +25,6 @@ export default class Config {
       const data = yaml.safeLoad(fileContents);
       return new Config(data);
     } catch (error) {
-      console.error(error);
       return new Config({});
     }
   }
@@ -52,7 +51,6 @@ export default class Config {
 
       // return new Config(data);
     } catch (error) {
-      console.error(error);
       return new Config({});
     }
   }
