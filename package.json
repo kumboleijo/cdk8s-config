@@ -23,8 +23,8 @@
     "cdk8s",
     "config"
   ],
-  "author": "Jonas Schmitt",
-  "license": "ISC",
+  "author": "Jonas Schmitt <jonas.schmitt@me.com>",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.0.5",
     "documentation": "^13.0.0",
