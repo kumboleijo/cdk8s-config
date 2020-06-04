@@ -1,6 +1,6 @@
 {
   "name": "cdk8s-config",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Add configuration features using environment variables.",
   "homepage": "https://github.com/kumboleijo/cdk8s-config",
   "repository": {
